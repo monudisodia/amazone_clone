@@ -10,6 +10,8 @@ export default function Header() {
 
     const {myReducer} =useDataValue();
     const  [state]=myReducer;
+
+    console.log(state.authInfo.user)
     return (
         <header className='header'>
             {/* headerlogo---------------------- */}
@@ -30,8 +32,8 @@ export default function Header() {
 
                 <Link to='/login'>
                 <div className='header_nav_user'>
-                    <span className='nav_line_1'>Hello Guest</span>
-                    <span className='nav_line_2'>Signin</span>
+                    <span className='nav_line_1'>{state.authInfo.user ? state.authInfo.user.email:'Hello Guest'}</span>
+                    <span className='nav_line_2'>{state.authInfo.user ? 'Sign out':'Hello Guest'}</span>
                 </div>
                 </Link>
 

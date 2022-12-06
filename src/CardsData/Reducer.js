@@ -1,4 +1,5 @@
 export const initialData = {
+    authInfo:{},
     cartList: [],
     productList: [
         {
@@ -109,6 +110,12 @@ export const reducer = (state, action) => {
                 ...state,
                 cartList: state.cartList.filter(item=>item.id!==action.payload)
             }
+
+        case 'SIGN_IN':
+            return {
+                ...state,
+                authInfo:action.payload
+            }    
         default: return state;
     }
 }

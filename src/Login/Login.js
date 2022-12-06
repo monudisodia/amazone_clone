@@ -1,8 +1,45 @@
-import React from 'react'
+import React, { useState } from 'react'
 import arrow from '../Header/arrow.png'
 import './Login.css'
+import {firebaseConfig} from './Firebase.js'
+import { initializeApp } from "firebase/app";
+import { getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from 'react-router-dom';
+import {useDataValue} from '../CardsData/DataProvider.js' 
 
 const Login = () => {
+
+
+    const app = initializeApp(firebaseConfig);
+
+    const [email,setEmail] =useState();
+    const [password,setPassword]=useState();
+    const auth = getAuth();
+    const navigate= useNavigate()
+
+    const {myReducer} = useDataValue();
+    const [,dispatch]= myReducer;
+    const signIn= (e)=>{
+        e.preventDefault();
+        signInWithEmailAndPassword(auth, email, password).then((auth)=>{
+            if(auth){
+                dispatch({
+                    type:'SIGN_IN',
+                    payload:auth
+                })
+                navigate('/')
+            }
+        }).catch(error=>alert(error.message));
+    }
+
+    const signUp = (e)=>{
+        e.preventDefault();
+        createUserWithEmailAndPassword(auth, email, password).then((auth)=>{
+            if(auth){
+                navigate('/')
+            }
+        }).catch(error=>alert(error.message));
+    }
     return (
         <div className='container'>
 
@@ -14,16 +51,17 @@ const Login = () => {
             <div className='login'>
                 <h2>Sign-in</h2>
                 <div className='inpud_details'>
+
                     <label >E-mail</label><br />
-                    <input type="email" /><br />
+                    <input type="email" value={email} onChange={(e)=>setEmail(e.target.value)} /><br />
 
                     <label >Password</label><br />
-                    <input type="password" /><br /><br />
-                    <button className='sign_btn'>Sign in</button><br/>
+                    <input type="password" value={password} onChange={(e)=>setPassword(e.target.value)} /><br /><br />
+                    <button className='sign_btn' onClick={signIn}>Sign in</button><br/>
                     <p>By Signing in you agree to the AMAZON FAKE CLONE Condition of use and sale. 
                         Please see our Privacy Notice,or our Cookies notices and our interest-based ads notice.</p><br/>
 
-                        <button>Create Your Amazon Account</button><br/>
+                        <button onClick={signUp}>Create Your Amazon Account</button><br/>
                 </div>
             </div>
         </div>
