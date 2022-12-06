@@ -1,0 +1,44 @@
+
+*{
+    /* text-align: center; */
+
+}
+button:hover{
+    cursor: pointer;
+}
+.cards{
+    width: 24%;
+    min-width: 23%;
+    /* height: 450px; */
+    border: 2px solid #131921;
+    background: rgb(234, 234, 234);
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+}
+
+.card_content{
+    width:45%;
+    /* background: rebeccapurple; */
+    align-self: center;
+    text-align: left;
+    /* margin-top: 20px; */
+   
+}
+.image_holder img{
+    margin-top: 10px;
+    width: 45%;
+  
+    
+}
+.card_content button{
+    background: #ff9f00;
+    width: 100px;
+    height: 30px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    border-radius: 3px;
+}
+.card_content button:hover{
+    cursor: pointer;
+}
